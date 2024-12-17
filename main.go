@@ -315,7 +315,7 @@ func main() {
 				if len(suggestions) > 0 {
 					printStyled("{yellow}Did you mean:\n")
 					for _, suggestion := range suggestions {
-						printStyled("{white}" + suggestion + "\n")
+						printStyled(suggestion + "\n")
 					}
 				}
 			} else {
