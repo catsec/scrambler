@@ -1,7 +1,7 @@
 #!/bin/bash
 
 platforms=("windows/amd64" "linux/amd64" "darwin/amd64" "darwin/arm64")
-output_names=("scrambler.exe" "scrambler-linux-amd64" "scrambler-macos-intel" "-scrambler-macos-arm")
+output_names=("scrambler.exe" "scrambler-linux-amd64" "scrambler-macos-intel" "scrambler-macos-arm")
 
 for i in "${!platforms[@]}"; do
     platform=${platforms[$i]}
