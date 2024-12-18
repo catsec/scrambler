@@ -1,4 +1,4 @@
-module scrambler
+module github.com/catsec/scrambler
 
 go 1.23.4
 
