@@ -1,3 +1,9 @@
+// This program is a word scrambler that uses a password to scramble a list of wallet words
+// The program is meant to run on a fresh formatted and air-gapped machine
+// It is not safe to run it on a machine connected to any kind of network
+// The program is meant to be used with a wordlist that matches the wallet backup
+// Writen by Ram Prass (2024)
+
 package main
 
 import (
@@ -10,16 +16,18 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/catsec/scrambler/wordlists"
+	"github.com/catsec/scrambler/wordlists" //  wordlists package (bip39, slip39)
 
-	"golang.org/x/crypto/argon2"
-	"golang.org/x/crypto/sha3"
+	"golang.org/x/crypto/argon2" //  argon2 key derivation function
+	"golang.org/x/crypto/sha3"   //  sha3 hash function
 
-	"github.com/agnivade/levenshtein"
+	"github.com/agnivade/levenshtein" // levenshtein distance used for word suggestions
 )
 
+// words is a global variable that holds the wordlist
 var words []string
 
+// selectWordList prompts the user to select a word list
 func selectWordList() {
 
 	printStyled("\n{cyan}{bold}Select a word list:\n\n")
@@ -47,6 +55,7 @@ func selectWordList() {
 		}
 		printStyled("{red}Invalid selection. Please try again.\n")
 	}
+	// the wordlist themselves are in wordlist package
 	switch selection {
 	case 1:
 		words = wordlists.Slip39
@@ -74,6 +83,7 @@ func selectWordList() {
 	printStyled("\n{green}Word list successfully loaded!\n\n")
 }
 
+// findWord returns the index of a word in the wordlist
 func findWord(word string) int {
 	for i, w := range words {
 		if w == word {
@@ -83,6 +93,7 @@ func findWord(word string) int {
 	return -1
 }
 
+// suggestWords returns a list of suggested words based on the input word
 func suggestWords(word string) []string {
 	type suggestion struct {
 		word  string
@@ -103,8 +114,9 @@ func suggestWords(word string) []string {
 	if len(word) >= 4 {
 		prefix = word[:4]
 	}
-
+	// prioritize suggestions that start with the same 4 letters
 	prioritySuggestions := []string{}
+	// regular suggestions based on levenshtein distance
 	regularSuggestions := []string{}
 
 	for _, s := range suggestions {
@@ -118,6 +130,7 @@ func suggestWords(word string) []string {
 	return append(prioritySuggestions, regularSuggestions...)
 }
 
+// isWeakPassword checks if a password is weak
 func isWeakPassword(password string) bool {
 	if len(password) < 8 {
 		return true
@@ -130,6 +143,7 @@ func isWeakPassword(password string) bool {
 	return !(hasLower && hasUpper && hasNumber && hasSpecial)
 }
 
+// hashRepeatedly hashes data repeatedly using sha3 512bit
 func hashRepeatedly(data []byte, iterations int) []byte {
 	hash := data
 	for i := 0; i < iterations; i++ {
@@ -139,6 +153,7 @@ func hashRepeatedly(data []byte, iterations int) []byte {
 	return hash
 }
 
+// bytesToBitString converts a byte slice to a string of bits "01010101..."
 func bytesToBitString(data []byte) string {
 	var bitString strings.Builder
 	for _, b := range data {
@@ -153,6 +168,7 @@ func bytesToBitString(data []byte) string {
 	return bitString.String()
 }
 
+// splitString splits a string into chunks of a given length (10,11 per wordlist size)
 func splitString(input string, length int) []string {
 	if length <= 0 {
 		return []string{}
@@ -168,12 +184,17 @@ func splitString(input string, length int) []string {
 	return result
 }
 
+// xorBitStrings performs a bitwise XOR operation on two bit strings
 func xorBitStrings(bits1, bits2 string) string {
+
+	// pad the shorter string with zeros
 	if len(bits1) < len(bits2) {
 		bits1 = strings.Repeat("0", len(bits2)-len(bits1)) + bits1
 	} else if len(bits2) < len(bits1) {
 		bits2 = strings.Repeat("0", len(bits1)-len(bits2)) + bits2
 	}
+
+	// perform the XOR operation
 	var result strings.Builder
 	for i := 0; i < len(bits1); i++ {
 		if bits1[i] == bits2[i] {
@@ -185,12 +206,14 @@ func xorBitStrings(bits1, bits2 string) string {
 	return result.String()
 }
 
+// bitsToInt converts a string of bits to an integer
 func bitsToInt(bits string) int {
 	result := new(big.Int)
 	result.SetString(bits, 2)
 	return int(result.Int64())
 }
 
+// intToBits converts an integer to a string of bits
 func intToBits(value int, bitLength int) string {
 	bitString := strconv.FormatInt(int64(value), 2)
 	if len(bitString) < bitLength {
@@ -200,6 +223,7 @@ func intToBits(value int, bitLength int) string {
 	return bitString
 }
 
+// printStyled prints text with ANSI escape codes for styling
 func printStyled(text string) {
 	reset := "\033[0m"
 	styles := map[string]string{
@@ -218,11 +242,13 @@ func printStyled(text string) {
 	fmt.Print(text + reset)
 }
 
+// just what it says
 func pressAnyKey() {
 	printStyled("\n{bold}{cyan}Press any key to continue...\n")
 	bufio.NewReader(os.Stdin).ReadByte()
 }
 
+// choice prompts the user to choose between two options
 func choice(message string, first string, second string, letter1 string, letter2 string) bool {
 	var userInput string
 	letter1 = strings.ToUpper(letter1)
@@ -240,6 +266,8 @@ func choice(message string, first string, second string, letter1 string, letter2
 	}
 	return userInput == letter1
 }
+
+// getPassword prompts the user to enter a password
 func getPassword(recover bool) string {
 	reader := bufio.NewReader(os.Stdin)
 	var password1, password2 string
@@ -256,7 +284,7 @@ func getPassword(recover bool) string {
 			printStyled("{red}{bold}\nError: Passwords do not match. Try again.")
 			continue
 		}
-
+		// if in wallet recover mode, don't check password strength
 		if !recover && isWeakPassword(password1) {
 			printStyled("\n{yellow}Warning: Your password is weak. It should be at least 8 characters long\n")
 			printStyled("{yellow}and include a mix of uppercase, lowercase, numbers, and special characters.\n")
@@ -275,14 +303,17 @@ func getPassword(recover bool) string {
 			break
 		}
 	}
-
+	// warn the user about password recovery - NOT POSSIBLE
 	if !recover {
 		printStyled("\n\n{yellow}Don't forget your password - there is {underline}NO WAY{reset}{yellow} to recover it!\n\n")
 	}
 	return password1
 }
+
+// main function
 func main() {
 
+	// print welcome message
 	printStyled("\n\n{cyan}{bold}{underline}Welcome to the wallet word scrambler\n\n")
 	printStyled("A password will be used to scramble your backup words\n")
 	printStyled("In order for the program to work a wordlist must be present at the current folder\n")
@@ -294,33 +325,45 @@ func main() {
 
 	pressAnyKey()
 
+	// select a word list
 	selectWordList()
-
+	// ask the user if they want to recover a wallet or create a new one
 	recover := choice("Do you want to recover a wallet or create (scramble) a new one?", "Recover", "Create", "R", "C")
 	reader := bufio.NewReader(os.Stdin)
+
+	// get the password
 	var password = getPassword(recover)
 	printStyled("\n{cyan}Gererating a key from your password.\nThis is an intentionaly slow process, please wait.\n\n")
+	// start the key derivation process salting with my phone number
 	argon2Hash := hashRepeatedly([]byte("this is just something to season the dish"), 4847868)
+	// use a lot of memory and time to make the key derivation slow
 	memory := uint32(1024 * 1024)
 	time := uint32(16)
 	threads := uint8(1)
 	keyLen := uint32(64)
 	rounds := 10
 	progress := 0
+
+	// make 10 rounds of argon2 key derivation to show progress
 	for i := 1; i <= rounds; i++ {
+		// first lets salt things up a bit...
 		argon2Hash = hashRepeatedly(argon2Hash, i)
+		// then we hash the password with argon2
 		argon2Hash = argon2.IDKey([]byte(password), argon2Hash, time, memory, threads, keyLen)
 		progress = (i * 100) / rounds
 		showProgress := ".." + strconv.Itoa(progress) + "%"
 		printStyled(showProgress)
 	}
-
+	// convert the finsal result to a string of bits
 	keyBits := bytesToBitString(argon2Hash)
+	// calulate the size of each word (number of bits) in the wordlist
 	wordBitSize := int(math.Log2(float64(len(words))))
+	// split the key into chunks of the size of each word
 	keyBitsWords := splitString(keyBits, wordBitSize)
 
 	printStyled("\n\n{green}Key generated.\n")
 
+	// ask the user to enter the number of words in their wallet
 	var walletWordCount int
 	for {
 		printStyled("\n{cyan}Enter the number of words in your wallet (12-33): ")
@@ -333,6 +376,7 @@ func main() {
 		}
 		fmt.Println("Invalid input. Please enter a number between 12 and 33.")
 	}
+	// ask the user to enter the words in their wallet
 	newWords := make([]string, walletWordCount)
 	for i := 0; i < walletWordCount; i++ {
 		var word string
@@ -359,8 +403,8 @@ func main() {
 			}
 		}
 	}
+	// print the new wallet words
 	if !recover {
-
 		printStyled("\n{bold}{underline}{cyan}Here are your new wallet words\n\n")
 	} else {
 		printStyled("\n{bold}{underline}{cyan}Here are your recovered wallet words\n\n")
@@ -370,8 +414,10 @@ func main() {
 		fmt.Printf("%*d. %s\n", numberPadding, i+1, word)
 	}
 
+	// Warn the user to write down the words
 	if !recover {
 		printStyled("\n\n{yellow}Write the words down and store them in a safe place.\n\n")
 	}
+	// Done
 	pressAnyKey()
 }
