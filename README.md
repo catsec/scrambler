@@ -3,7 +3,7 @@
 ## Overview
 Have you ever been worried that your wallet words backup be exposed and used to steal your wallet?
 
-The **WScrambler** is a secure program designed to scramble or recover wallet backup words using a password. This ensures an added layer of security for your wallet's seed phrase. It is intended to be used on an air-gapped and freshly formatted machine to maximize security.
+The **Scrambler** is a secure program designed to scramble or recover wallet backup words using a password. This ensures an added layer of security for your wallet's seed phrase. It is intended to be used on an air-gapped and freshly formatted machine to maximize security.
 
 ## Features
 
