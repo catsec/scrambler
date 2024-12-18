@@ -23,17 +23,17 @@ var words []string
 func selectWordList() {
 
 	printStyled("\n{cyan}{bold}Select a word list:\n\n")
-	printStyled("{cyan} 1. {bold}English (slip39, 1024 words, used by Trezor)\n")
-	printStyled("{cyan} 2. {bold}English (bip39, 2048 words)\n")
-	printStyled("{cyan} 3. {bold}Czech (bip39, 2048 words)\n")
-	printStyled("{cyan} 4. {bold}Chinese simplified (bip39, 2048 words)\n")
-	printStyled("{cyan} 5. {bold}Chinese traditional (bip39, 2048 words)\n")
-	printStyled("{cyan} 6. {bold}French (bip39, 2048 words)\n")
-	printStyled("{cyan} 7. {bold}Italian (bip39, 2048 words)\n")
-	printStyled("{cyan} 8. {bold}Japanese (bip39, 2048 words)\n")
-	printStyled("{cyan} 9. {bold}Korean (bip39, 2048 words)\n")
-	printStyled("{cyan}10. {bold}Spanish (bip39, 2048 words)\n")
-	printStyled("{cyan}11. {bold}Portuguese (bip39, 2048 words)\n")
+	printStyled(" 1. {bold}English (slip39, 1024 words, used by Trezor)\n")
+	printStyled(" 2. {bold}English (bip39, 2048 words)\n")
+	printStyled(" 3. {bold}Czech (bip39, 2048 words)\n")
+	printStyled(" 4. {bold}Chinese simplified (bip39, 2048 words)\n")
+	printStyled(" 5. {bold}Chinese traditional (bip39, 2048 words)\n")
+	printStyled(" 6. {bold}French (bip39, 2048 words)\n")
+	printStyled(" 7. {bold}Italian (bip39, 2048 words)\n")
+	printStyled(" 8. {bold}Japanese (bip39, 2048 words)\n")
+	printStyled(" 9. {bold}Korean (bip39, 2048 words)\n")
+	printStyled("10. {bold}Spanish (bip39, 2048 words)\n")
+	printStyled("11. {bold}Portuguese (bip39, 2048 words)\n")
 	reader := bufio.NewReader(os.Stdin)
 	var selection int
 	for {
