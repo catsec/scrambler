@@ -337,9 +337,9 @@ func main() {
 	// start the key derivation process salting with my phone number
 	argon2Hash := hashRepeatedly([]byte("this is just something to season the dish"), 4847868)
 	// use a lot of memory and time to make the key derivation slow
-	memory := uint32(1024 * 1024)
+	memory := uint32(4 * 1024 * 1024)
 	time := uint32(16)
-	threads := uint8(1)
+	threads := uint8(4)
 	keyLen := uint32(64)
 	rounds := 10
 	progress := 0
