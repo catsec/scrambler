@@ -1,4 +1,4 @@
-//
+// Module: crypto
 // Chaning the hashing algorithm parameters or the number of iterations will make the key incompatible with the default one
 // and you will not be able to recover your wallet
 //

@@ -1,4 +1,6 @@
-
+// Module: input
+// Module for getting input from the user
+//
 use std::io::{self, Write};
 use crate::constants::*;
 use crate::utils::*;

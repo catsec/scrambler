@@ -1,4 +1,8 @@
-// do not change this values!!!
+// module: constants
+// constants used by the program
+//
+
+// do not change this values:
 pub const A_TIME: u32 = 5;
 pub const A_MEMORY: u32 = 2*1024*1024;
 pub const A_PARALLELISM: u32 = 4;
@@ -11,7 +15,7 @@ pub const LOWER: &str = "abcdefghijklmnopqrstuvwxyz";
 pub const NUMBERS: &str = "0123456789";
 pub const SPECIAL: &str = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/";
 
-// if wordlist are added you can add them here
+// if wordlists are added you can add them here (but don't overide)
 pub const LANG: [&str; 11] = [
     "SLIP39 (English, 1024 words, used by Trezor)",
     "English (BIP 39, 2048 words)",

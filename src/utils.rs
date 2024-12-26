@@ -1,6 +1,8 @@
+// Module: utils
+// Various utility functions used by the program
+//
 
 use crate::constants::*;
-
 use levenshtein::levenshtein; 
 
 pub fn getwordlistbitsize(lang: usize) -> usize {
