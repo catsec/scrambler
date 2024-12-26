@@ -1,0 +1,16 @@
+[package]
+name = "scrambler"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+sha3 = "0.10"           
+levenshtein = "1.0"     
+argon2 = "0.5"   
+
+[profile.release]
+opt-level = "z"
+lto = true       
+panic = "abort"
+codegen-units = 1
+strip = "debuginfo"
