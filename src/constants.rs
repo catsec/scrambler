@@ -13,7 +13,7 @@ pub const SPECIAL: &str = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/";
 
 // if wordlist are added you can add them here
 pub const LANG: [&str; 11] = [
-    "Slip39 (English, 1024 words, used by Trezor)",
+    "SLIP39 (English, 1024 words, used by Trezor)",
     "English (BIP 39, 2048 words)",
     "Czech (BIP 39, 2048 words)",
     "French (BIP 39, 2048 words)",
