@@ -1,5 +1,7 @@
 # Catsec Wallet Word Scrambler
 
+Ever wondered what would happen if your wallet backup got stolen? 
+
 Catsec Wallet Word Scrambler is a Rust-based tool designed to securely scramble wallet backup words using a password of your choice. It provides a way to enhance the security of your wallet by obfuscating your recovery words. The program supports scrambling and recovery workflows.
 
 ## Features
