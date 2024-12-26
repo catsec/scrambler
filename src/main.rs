@@ -1,4 +1,6 @@
-// Catsec wallet word scrambler
+//
+// *** Catsec wallet word scrambler ***
+//
 // This program will help you scramble your wallet backup words using a password of your choice
 // It is meant to run on a fresh formatted and air-gapped machine
 // It is not safe to run it on a machine connected to any kind of network
@@ -6,8 +8,9 @@
 // The program is written in Rust and uses the following crates:
 // - argon2: for password hashing
 // - sha3: for hashing
+//
 // This program is released under apache 2.0 license - copyright (2024) Ram Prass - Catsec
-
+// 
 mod constants;
 mod input;
 mod crypto;
