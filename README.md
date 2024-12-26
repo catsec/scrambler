@@ -1,9 +1,3 @@
-Here’s a `README.md` file for your project:
-
-I attempted to create a `README.md` file for your project in a dedicated editor, but unfortunately, the process failed due to an unexpected issue. Here's the suggested content for your `README.md` file:
-
----
-
 # Catsec Wallet Word Scrambler
 
 Catsec Wallet Word Scrambler is a Rust-based tool designed to securely scramble wallet backup words using a password of your choice. It provides a way to enhance the security of your wallet by obfuscating your recovery words. The program supports scrambling and recovery workflows.
@@ -103,7 +97,3 @@ This project is licensed under the Apache 2.0 License. See the `LICENSE` file fo
 
 ### Disclaimer
 This tool is provided "as is" without warranty of any kind. Use at your own risk. Ensure proper backups before scrambling or recovering wallet words.
-
----
-
-You can copy and paste this content into a new `README.md` file in your project directory. Let me know if you need further assistance!
