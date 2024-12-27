@@ -4,23 +4,16 @@
 
 use crate::constants::*;
 use levenshtein::levenshtein; 
+use std::net::TcpStream;
 
-pub fn getwordlistbitsize(lang: usize) -> usize {
-    // Calculate the number of bits required to represent the word list
-    
-    // all words are non-empty, so we can count them directly
-    let words = &WORDS[lang];
-    
-    // count only non-empty words
-    let word_count = words.iter().filter(|&&word| !word.is_empty()).count();
-    
-    // calculate the number of bits required to represent the word list
-    f64::from(word_count as u32).log2().ceil() as usize
+// Check if the user is connected to the internet
+pub fn internetconnection() -> bool {
+    TcpStream::connect("8.8.8.8:53").is_ok() // Google's public DNS
 }
 
+// Divide the key into chunks of the specified size
 pub fn dividekey(data: [u8; 64], parts: usize, chunksize: usize) -> Vec<u16> {
-    // Divide the key into chunks of the specified size
-    
+
     // Calculate the total number of bits required for the chunks
     let totalbits = parts * chunksize;
     
@@ -76,6 +69,7 @@ pub fn dividekey(data: [u8; 64], parts: usize, chunksize: usize) -> Vec<u16> {
     return  chunks
 }
 
+// suggest words based on the user input
 pub fn find_suggestions(word: &str, wordlist: &[&str]) -> Vec<String> {
     let mut suggestions = Vec::new();
 
@@ -115,9 +109,22 @@ pub fn find_suggestions(word: &str, wordlist: &[&str]) -> Vec<String> {
     suggestions
 }
 
+// Calculate the number of bits required to represent the word list
+pub fn getwordlistbitsize(lang: usize) -> usize {
 
+    
+    // all words are non-empty, so we can count them directly
+    let words = &WORDS[lang];
+    
+    // count only non-empty words
+    let word_count = words.iter().filter(|&&word| !word.is_empty()).count();
+    
+    // calculate the number of bits required to represent the word list
+    f64::from(word_count as u32).log2().ceil() as usize
+}
+
+// Scramble the wallet words using the secret key
 pub fn scramblewords(words: Vec<usize>, secretkey: [u8; 64], lang: usize) -> Vec<usize> {
-    // Scramble the wallet words using the secret key
 
     // Get the number of bits required to represent the word list
     let wordlistbitsize = getwordlistbitsize(lang);
@@ -143,8 +150,8 @@ pub fn scramblewords(words: Vec<usize>, secretkey: [u8; 64], lang: usize) -> Vec
     newwords
 }
 
+// Print the wallet words to the user
 pub fn printwords(words: &[usize], lang: usize,recover: bool) {
-    // Print the wallet words to the user
 
     // change the message based on the action
     if recover {

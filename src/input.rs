@@ -2,9 +2,11 @@
 // Module for getting input from the user
 //
 use std::io::{self, Write};
+use std::process;
 use crate::constants::*;
 use crate::utils::*;
 
+// Function to choose an action from a list of choices
 pub fn choose(action: &str, choices: &[&str]) -> usize {
     // Display the action and choices to the user    
 
@@ -48,6 +50,7 @@ pub fn choose(action: &str, choices: &[&str]) -> usize {
     }
 }
 
+// Function to get input from the user and validate it
 pub fn getinput(prompt: &str, allowed: &str) -> String {
     
     // Get input from the user and validate it
@@ -72,9 +75,9 @@ pub fn getinput(prompt: &str, allowed: &str) -> String {
     }
 }
 
+// Get a password from the user and validate it
 pub fn getpassword(recover: bool) -> Vec<u8> {
-    // Get a password from the user and validate it
-    
+   
     // allowed characters for the password: upper case, lower case, numbers, special characters
     let allowed = format!("{}{}{}{}", UPPER, LOWER, NUMBERS, SPECIAL);
     if !recover {
@@ -130,9 +133,9 @@ pub fn getpassword(recover: bool) -> Vec<u8> {
     }
 }
 
+// promot the user to get the number of words in the wallet
 pub fn getwalletsize() -> usize {
-    // promot the user to get the number of words in the wallet
-    
+  
     loop {
        
        // get the input from the user allowiung only numbers
@@ -144,6 +147,7 @@ pub fn getwalletsize() -> usize {
     }
 }
 
+// get the words from the user and validate them
 pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
     // Ensure wallet size does not exceed the maximum allowed
     if walletsize > MAX_WORDS {
@@ -183,12 +187,11 @@ pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
     }
 
     // Return the indexes of the words as a vector
-    indexes
+    return indexes
 }
     
-
+// Save the wallet words to a file
 pub fn savewallet(words: &[usize], lang: usize) {
-    // Save the wallet words to a file
 
     // Ask the user if they want to save the wallet
     let save=choose("Would you like to save your scrambled wallet words?", &["Yes", "No"]);
@@ -215,8 +218,8 @@ pub fn savewallet(words: &[usize], lang: usize) {
 
 }
 
+// Recover the wallet words from a file
 pub fn recoverfromfile() -> (usize, usize, Vec<usize>) {
-    // Recover the wallet words from a file
 
     // Ask the user if they want to recover from a file
     let choice = choose("Do you want to recover from a file?", &["Yes", "No"]);
@@ -224,7 +227,7 @@ pub fn recoverfromfile() -> (usize, usize, Vec<usize>) {
         // User does not want to recover from a file
         return (0, 0, vec![]);
     }
-
+    // assenble the allowed characters for the filename
     let allowed = format!("{}{}{}", UPPER, LOWER, NUMBERS);
     println!("\nFile should be a .txt file in the current directory.");
     let filename = getinput("Enter the filename of your wallet (no extension): ", &allowed);
@@ -282,3 +285,25 @@ pub fn recoverfromfile() -> (usize, usize, Vec<usize>) {
     // the words in the file are not in any of the supported languages
     panic!("The wallet file contains words not found in any supported language.");
 }
+
+// Warn the user if they are connected to the internet and ask if they want to continue
+pub fn warnuser() {
+    println!("\n******************************************************************");
+    println!("*             WARNING: YOU ARE CONNECTED TO THE INTERNET         *");
+    println!("*                    THIS A REALLY BAD IDEA                      *");
+    println!("*                                                                *");
+    println!("* If there is by chance a maleware on your computer your wallet  *");
+    println!("* might be exposed and lost. unless you are just testing this    *");
+    println!("* utility, please disconnect, and wipe the computer after usage  *");
+    println!("******************************************************************\n");
+
+    print!("Are you want to continue? (type \"YES\" to continue):");
+    std::io::stdout().flush().unwrap();
+    let mut input = String::new();
+    std::io::stdin().read_line(&mut input).unwrap();
+    if input.trim() != "YES" {
+            println!("Exiting...");
+            process::exit(0);
+        }
+}
+

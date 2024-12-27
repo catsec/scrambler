@@ -34,6 +34,11 @@ fn main() {
     println!("It is not safe to run it on a machine connected to any kind of network");
     println!("Though nothing is saved - secure wipe your machine immediately after use");
     
+    // Check if the user is connected to the internet and warn them if they are
+    if internetconnection() {
+        warnuser();
+    }
+
     // Ask the user if they want to scramble a new wallet or recover an existing one
     let recover = choose("What would you like to do?", &["Scramble a new wallet", "Recover an existing wallet"]) == 1;
     
