@@ -18,14 +18,10 @@ This program is intended to run on:
 
 Although nothing is saved locally, it is strongly recommended to securely wipe the machine after use.
 
-## Requirements
-- **Rust**: The program is written in Rust and requires the Rust toolchain to build.
-- **Dependencies**: The following Rust crates are used:
-  - `argon2`: For password hashing.
-  - `sha3`: For cryptographic hashing.
-  - `levenshtein`: For word suggestion based on similarity.
 
 ## Installation
+
+nope - just run the binary
 
 ### Prerequisites
 1. Install Rust: [Rust Installation Guide](https://www.rust-lang.org/tools/install)
@@ -66,17 +62,6 @@ cargo run --release
 ### File Support
 You can optionally save or load wallet words from `.txt` files in the current directory.
 
-### Example
-```bash
-Welcome to Catsec's wallet word scrambler
-
-What would you like to do?
-1. Scramble a new wallet
-2. Recover an existing wallet
-
-Enter your choice: 1
-```
-
 ## Development
 ### File Structure
 - `src/`
@@ -86,8 +71,6 @@ Enter your choice: 1
   - `utils.rs`: Contains utility functions for word scrambling and recovery.
 - `Cargo.toml`: Rust package configuration.
 
-### Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## License
 This project is licensed under the Apache 2.0 License. See the `LICENSE` file for details.
@@ -95,7 +78,47 @@ This project is licensed under the Apache 2.0 License. See the `LICENSE` file fo
 ## Author
 **Ram Prass** - Catsec
 
----
+## Q&A
 
+### Why do I even need it?
+
+Current wallet backups are not encrypted, that means that if someone gets their hand on it, you are basicly F**ked
+no safe is strong enough, and someone always finds the key.
+Using a password to protect it gives you some assurance that even if someone got your wallet words, they can't
+use them without knowing your password
+
+### Why do you create a word list
+
+I decided to use a word list to be "compatible" with hardware instruments that are being sold to safe keep your
+wallet. in that way you can "etch" the words on those devices only its a scarmbled one - and not the "original"
+
+
+### Why does it take so long (might be even 2 minutes) to derive the key?
+
+TLDR; I don't trust you 
+
+The simple answer is that even though I encourage users to use a real strong password, most users don't do it.
+from easily guessable personal details to previusly used passwords (variations) - users tend to choose a bad password
+the fact the every password will give a legitmate output and the usage of long key derivation gives you a better chance 
+to withstand a hacker attack
+
+Also while I use top of the class algorithms (sha-3, Argon2id) they might becode vulnerable as time passess,
+Wallet backup should be there for years...
+
+### Can I save my generated scrambled word list on the cloud?
+
+I wouldn't advise it - always use several defense mechanisms, store it on a USB stick. put it in a safe. after all - its your money...
+
+### How can I be sure you are not stealing my wallet?
+
+You can't! don't trust me, don't trust anyone!
+Check the code if you can, and always use air-gaped machine and wipe it clean after!
+
+### All those security advices, are a bit exsesive aren't they? air-gaped machine... wiping clear... 
+
+Nope they are not. 
+
+
+---
 ### Disclaimer
 This tool is provided "as is" without warranty of any kind. Use at your own risk. Ensure proper backups before scrambling or recovering wallet words.
