@@ -82,7 +82,7 @@ This project is licensed under the Apache 2.0 License. See the `LICENSE` file fo
 
 ### Why do I even need it?
 
-Current wallet backups are not encrypted. This means that if someone gains access to your backup, you're basically fked. No safe is impenetrable, and someone will always find a way to access it.
+Current wallet backups are not encrypted. This means that if someone gains access to your backup, you're basically F**KED. No safe is impenetrable, and someone will always find a way to access it.
 Using a password to protect your wallet gives you some assurance that, even if someone gets hold of your wallet’s recovery words, they won’t be able to use them without knowing your password.
 
 ## Why do you create a word list?
