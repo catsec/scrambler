@@ -78,45 +78,43 @@ This project is licensed under the Apache 2.0 License. See the `LICENSE` file fo
 ## Author
 **Ram Prass** - Catsec
 
-## Q&A
+##Q&A
 
-### Why do I even need it?
+###Why do I even need it?
 
-Current wallet backups are not encrypted, that means that if someone gets their hand on it, you are basicly F**ked
-no safe is strong enough, and someone always finds the key.
-Using a password to protect it gives you some assurance that even if someone got your wallet words, they can't
-use them without knowing your password
+Current wallet backups are not encrypted. This means that if someone gains access to your backup, you're basically fked. No safe is impenetrable, and someone will always find a way to access it.
+Using a password to protect your wallet gives you some assurance that, even if someone gets hold of your wallet’s recovery words, they won’t be able to use them without knowing your password.
+Why do you create a word list?
 
-### Why do you create a word list
+I decided to use a word list to maintain compatibility with hardware tools designed to safeguard wallets.
+This way, you can etch the scrambled words onto those devices, ensuring they are not the original sequence but still recoverable.
 
-I decided to use a word list to be "compatible" with hardware instruments that are being sold to safe keep your
-wallet. in that way you can "etch" the words on those devices only its a scarmbled one - and not the "original"
+##Why does it take so long (up to 2 minutes) to derive the key?
 
+TL;DR: I don’t trust you.
 
-### Why does it take so long (might be even 2 minutes) to derive the key?
+The short answer is that while I encourage users to create strong passwords, most don’t.
+From easily guessable personal details to slight variations of previously used passwords, users tend to choose poor passwords.
 
-TLDR; I don't trust you 
+By ensuring every password produces a legitimate output and employing a time-intensive key derivation process, the system offers better protection against hackers.
 
-The simple answer is that even though I encourage users to use a real strong password, most users don't do it.
-from easily guessable personal details to previusly used passwords (variations) - users tend to choose a bad password
-the fact the every password will give a legitmate output and the usage of long key derivation gives you a better chance 
-to withstand a hacker attack
+Additionally, while I use state-of-the-art algorithms (SHA-3, Argon2id), they may become vulnerable over time. Wallet backups are meant to last for years, so extra caution is necessary.
 
-Also while I use top of the class algorithms (sha-3, Argon2id) they might becode vulnerable as time passess,
-Wallet backup should be there for years...
+##Can I save my generated scrambled word list on the cloud?
 
-### Can I save my generated scrambled word list on the cloud?
+I wouldn’t advise it. Always use multiple layers of protection.
+Store it on a USB stick, place it in a safe, or both. After all, it’s your money at stake.
 
-I wouldn't advise it - always use several defense mechanisms, store it on a USB stick. put it in a safe. after all - its your money...
+##How can I be sure you’re not stealing my wallet?
 
-### How can I be sure you are not stealing my wallet?
+You can’t! Don’t trust me, and don’t trust anyone else either.
+Review the code if you’re able to, and always use an air-gapped machine. Wipe it clean after use!
 
-You can't! don't trust me, don't trust anyone!
-Check the code if you can, and always use air-gaped machine and wipe it clean after!
+##All this security advice seems excessive: air-gapped machines, wiping everything clean...
 
-### All those security advices, are a bit exsesive aren't they? air-gaped machine... wiping clear... 
+No, it’s not excessive.
 
-Nope they are not. 
+When it comes to your money, no precaution is too great.
 
 
 ---
