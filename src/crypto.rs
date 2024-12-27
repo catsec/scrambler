@@ -9,9 +9,8 @@ use sha3::{Digest, Sha3_512};
 use std::io::{self, Write};
 use std::process;
 
+// Hash the data using SHA3-512 for the specified number of iterations
 pub fn sha3(data: &[u8], iterations: u32) -> Vec<u8> {
-    
-    // Hash the data using SHA3-512 for the specified number of iterations
     let mut hash = data.to_vec();
     for _ in 0..iterations {
         let mut hasher = Sha3_512::new();
@@ -21,10 +20,10 @@ pub fn sha3(data: &[u8], iterations: u32) -> Vec<u8> {
     return hash
 }
 
+// Derive a secret key from the password using Argon2
 pub fn derivekey(password: Vec<u8>) -> [u8; 64] {
-    // Derive a secret key from the password using Argon2
-    
-    println!("\nCalculating derived secret key, this WILL take a while\n");
+
+    println!("\nDeriving secret key, this WILL take a while (have some tea and relax)\n");
     
     // create Argon2 parameters
     // if you change those your key will not be compatible with the default one and you will not be able to recover your wallet
@@ -42,17 +41,14 @@ pub fn derivekey(password: Vec<u8>) -> [u8; 64] {
     let mut secretkey = [0u8; 64];
     
     // repeat for a number of iterations (10 for now)
-
     for i in 1..=ITERATIONS {
         
-        // create a new salt for each iteration by hashing the password and the iteration number
-        
+        // create a new salt for each iteration by hashing the password and the iteration number 
         let counter: u32 = i as u32+580;
         let salt = sha3(&password, counter);
         
         // hash the password into the secret key using Argon2
         if let Err(e) = argon2.hash_password_into(&password, &salt, &mut secretkey) {
-            
             // oops...
             eprintln!("Error hashing password: {}", e);
             process::exit(1);

@@ -21,18 +21,15 @@ pub fn choose(action: &str, choices: &[&str]) -> usize {
     } else {
         "Enter 1 or 2: ".to_string()
     };
-    
 
+ // loop until the user enters a valid choice
     loop {
-        // loop until the user enters a valid choice
-        
         for (index, choice) in choices.iter().enumerate() {
-            
             // add a space before single digit choices for better alignment
             let space = if index < 9 { " " } else { "" };
             println!("{}{}. {}", space, index + 1, choice);
         }
-        
+       
         // get the user input allowing only numbers
         let input = getinput(&prompt, NUMBERS);
         
@@ -149,6 +146,7 @@ pub fn getwalletsize() -> usize {
 
 // get the words from the user and validate them
 pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
+    
     // Ensure wallet size does not exceed the maximum allowed
     if walletsize > MAX_WORDS {
         panic!("Wallet size cannot exceed {}", MAX_WORDS);
@@ -283,7 +281,8 @@ pub fn recoverfromfile() -> (usize, usize, Vec<usize>) {
         }
     }
     // the words in the file are not in any of the supported languages
-    panic!("The wallet file contains words not found in any supported language.");
+    println!("The wallet file contains words not found in any supported language.");
+    process::exit(1);
 }
 
 // Warn the user if they are connected to the internet and ask if they want to continue
