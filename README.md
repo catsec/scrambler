@@ -78,18 +78,19 @@ This project is licensed under the Apache 2.0 License. See the `LICENSE` file fo
 ## Author
 **Ram Prass** - Catsec
 
-##Q&A
+## Q&A
 
-###Why do I even need it?
+### Why do I even need it?
 
 Current wallet backups are not encrypted. This means that if someone gains access to your backup, you're basically fked. No safe is impenetrable, and someone will always find a way to access it.
 Using a password to protect your wallet gives you some assurance that, even if someone gets hold of your wallet’s recovery words, they won’t be able to use them without knowing your password.
-Why do you create a word list?
+
+## Why do you create a word list?
 
 I decided to use a word list to maintain compatibility with hardware tools designed to safeguard wallets.
 This way, you can etch the scrambled words onto those devices, ensuring they are not the original sequence but still recoverable.
 
-##Why does it take so long (up to 2 minutes) to derive the key?
+## Why does it take so long (up to 2 minutes) to derive the key?
 
 TL;DR: I don’t trust you.
 
@@ -100,17 +101,19 @@ By ensuring every password produces a legitimate output and employing a time-int
 
 Additionally, while I use state-of-the-art algorithms (SHA-3, Argon2id), they may become vulnerable over time. Wallet backups are meant to last for years, so extra caution is necessary.
 
-##Can I save my generated scrambled word list on the cloud?
+## Can I save my generated scrambled word list on the cloud?
 
-I wouldn’t advise it. Always use multiple layers of protection.
+I wouldn’t advise it. Always use multiple layers of protection:
+
 Store it on a USB stick, place it in a safe, or both. After all, it’s your money at stake.
 
-##How can I be sure you’re not stealing my wallet?
+## How can I be sure you’re not stealing my wallet?
 
 You can’t! Don’t trust me, and don’t trust anyone else either.
+
 Review the code if you’re able to, and always use an air-gapped machine. Wipe it clean after use!
 
-##All this security advice seems excessive: air-gapped machines, wiping everything clean...
+## All this security advice seems excessive: air-gapped machines, wiping everything clean...
 
 No, it’s not excessive.
 
