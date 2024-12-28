@@ -72,6 +72,21 @@ You can optionally save or load wallet words from `.txt` files in the current di
 - `Cargo.toml`: Rust package configuration.
 
 
+## How it works
+
+the program take two inputs:
+- password
+- list of words
+
+Then the follow process accures:
+- Derive a 512bit key from the password and deviding it to 10 or 11 bits chunks (according to the wordlist size).
+- Words are then converted to their index according to the wordlist resulting in a 10 or 11 bit value for each word.
+- This value is then XORed with the key chunk until all words are XORed.
+- Calculate a new word according to the XORed values index.
+- the result is a list of new words that if will be xored again with a key derived from the same password will return the original value.
+
+This process will returen a valid list word for any password, eliminating known plaintext attacks (though SLIP39 produces preditable first words that might be used to eliminate some results)
+
 ## License
 This project is licensed under the Apache 2.0 License. See the `LICENSE` file for details.
 
