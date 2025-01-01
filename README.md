@@ -21,7 +21,8 @@ Although nothing is saved locally, it is strongly recommended to securely wipe t
 
 ## Installation
 
-nope - just run the binary
+If you don't want to compile yourself just help yourself to the binaries:
+Download the latest release from [here](https://github.com/catsec/scrambler/releases/latest).
 
 ### Prerequisites
 1. Install Rust: [Rust Installation Guide](https://www.rust-lang.org/tools/install)
