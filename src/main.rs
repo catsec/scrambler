@@ -16,6 +16,8 @@ mod crypto;
 mod input;
 mod utils;
 
+use std::io::Read;
+
 use constants::*;
 use crypto::*;
 use input::*;
@@ -84,4 +86,6 @@ fn main() {
         // if not recovering from a file, ask the user if they want to save the wallet
         savewallet(&newwords, lang);
     }
+    println!("\nPress any key to exit");
+    let _ = std::io::stdin().read(&mut [0u8]).unwrap();
 }
