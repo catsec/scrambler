@@ -109,7 +109,7 @@ pub fn getpassword(recover: bool) -> Vec<u8> {
             // show a warning if the password is weak
 
             // reuqire the user to confirm if they want to continue with a weak password
-            let agree=getinput("\nPassword is weak. Are you sure you want to continue? (type \"YES\" to continue): ", &UPPER);
+            let agree=getinput("\nWeak Passord. Sure you want to continue? (type \"YES\" in capitals to continue): ", &UPPER);
             if agree == "YES" {
                 // User confirmed to continue with a weak password
                 println!("\nRemember your password, it CANNOT be recovered.\n");
@@ -147,7 +147,8 @@ pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
 
     // Create a vector to store the indexes of the words
     let mut indexes: Vec<usize> = vec![0; walletsize];
-
+    println!("\nPlease enter the words one by one.\nIf you type don't know the full word, type the staring letters,\nThe program will suggest possible words.\n");
+    io::stdout().flush().expect("Failed to flush stdout");
     for i in 0..walletsize {
         loop {
             // Prompt the user to enter the word
@@ -283,16 +284,16 @@ pub fn recoverfromfile() -> (usize, usize, Vec<usize>) {
 
 // Warn the user if they are connected to the internet and ask if they want to continue
 pub fn warnuser() {
-    println!("\n******************************************************************");
-    println!("*             WARNING: YOU ARE CONNECTED TO THE INTERNET         *");
-    println!("*                    THIS A REALLY BAD IDEA                      *");
-    println!("*                                                                *");
-    println!("* If there is by chance a maleware on your computer your wallet  *");
-    println!("* might be exposed and lost. unless you are just testing this    *");
-    println!("* utility, please disconnect, and wipe the computer after usage  *");
-    println!("******************************************************************\n");
+    println!("\n************************************************************************");
+    println!("*                WARNING: YOU ARE CONNECTED TO THE INTERNET            *");
+    println!("*                        THIS A REALLY BAD IDEA                        *");
+    println!("*                                                                      *");
+    println!("* If there is by chance a maleware on your computer your wallet might  *");
+    println!("* be exposed and lost.  Unless you are just testing this utility,      *");
+    println!("* Please disconnect, and wipe the computer after usage                 *");
+    println!("************************************************************************\n");
 
-    print!("Are you want to continue? (type \"YES\" to continue):");
+    print!("Sure you want to continue? (type \"YES\" in capital letters to continue):");
     std::io::stdout().flush().unwrap();
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).unwrap();
