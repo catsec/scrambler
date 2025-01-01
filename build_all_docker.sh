@@ -37,7 +37,7 @@ build_target() {
         compiler_pkg="gcc-aarch64-linux-gnu"
         linker="aarch64-linux-gnu-gcc"
     elif [[ "$target" == "x86_64-pc-windows-gnu" ]]; then
-        output_name="scrambler-windows-x86_64"
+        output_name="scrambler-windows-x86_64.exe"
         compiler_pkg="gcc-mingw-w64-x86-64"
         linker="x86_64-w64-mingw32-gcc"
     elif [[ "$target" == "x86_64-apple-darwin" ]]; then
