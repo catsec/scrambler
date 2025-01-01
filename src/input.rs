@@ -3,7 +3,7 @@
 //
 use crate::constants::*;
 use crate::utils::*;
-use std::io::{self, Write,Read};
+use std::io::{self, Write};
 use std::process;
 
 // Function to choose an action from a list of choices
