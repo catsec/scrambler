@@ -1,0 +1,42 @@
+{
+    "saveEditorLayout.list": [
+        {
+            "name": "scrambler",
+            "documents": [
+                {
+                    "fsPath": "/Users/ram/dev/rust/scrambler/src/constants.rs",
+                    "column": 1,
+                    "pinned": false
+                },
+                {
+                    "fsPath": "/Users/ram/dev/rust/scrambler/src/utils.rs",
+                    "column": 1,
+                    "pinned": false
+                },
+                {
+                    "fsPath": "/Users/ram/dev/rust/scrambler/src/main.rs",
+                    "column": 1,
+                    "pinned": false
+                },
+                {
+                    "fsPath": "/Users/ram/dev/rust/scrambler/src/input.rs",
+                    "column": 1,
+                    "pinned": false
+                },
+                {
+                    "fsPath": "/Users/ram/dev/rust/scrambler/src/crypto.rs",
+                    "column": 1,
+                    "pinned": false
+                }
+            ],
+            "layout": {
+                "orientation": 1,
+                "groups": [
+                    {
+                        "size": 524
+                    }
+                ]
+            }
+        }
+    ]
+}
