@@ -63,21 +63,35 @@ fn main() {
     }
 
     // get the password from the user
-    let password = getpassword(recover);
+    let mut password = getpassword(recover);
 
     // derive the secret key from the password
-    let secretkey = derivekey(password);
+    let mut secretkey = derivekey(password.clone());
+    
+    // secure wipe the password
+    for byte in password.iter_mut() {
+        *byte = 0;
+    }
+
+    // get the wallet size if not recovering from a file
     if walletsize == 0 {
-        // get the wallet size if not recovering from a file
+
         walletsize = getwalletsize();
     }
+    
+    // get the wallet words if not recovering from a file
     if words.is_empty() {
-        // get the wallet words if not recovering from a file
+
         words = getwords(walletsize, lang);
     }
 
     // scramble the wallet words using the secret key
     let newwords: Vec<usize> = scramblewords(words, secretkey, lang);
+    
+    // secure wipe the secret key
+    for byte in secretkey.iter_mut() {
+        *byte = 0;
+    }
 
     // print the new words to the user
     println!("");

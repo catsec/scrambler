@@ -25,6 +25,7 @@ pub fn choose(action: &str, choices: &[&str]) -> usize {
     // loop until the user enters a valid choice
     loop {
         for (index, choice) in choices.iter().enumerate() {
+            
             // add a space before single digit choices for better alignment
             let space = if index < 9 { " " } else { "" };
             println!("{}{}. {}", space, index + 1, choice);
@@ -36,6 +37,7 @@ pub fn choose(action: &str, choices: &[&str]) -> usize {
         // parse the input as a number and check if it is a valid choice
         match input.trim().parse::<usize>() {
             Ok(num) if num >= 1 && num <= choices.len() => {
+                
                 // return the choice as a 0-based index
                 return num - 1;
             }
@@ -48,9 +50,11 @@ pub fn choose(action: &str, choices: &[&str]) -> usize {
 
 // Function to get input from the user and validate it
 pub fn getinput(prompt: &str, allowed: &str) -> String {
+    
     // Get input from the user and validate it
     let mut input = String::new();
     loop {
+        
         // Show the prompt and get the input
         print!("\n{}", prompt);
         io::stdout().flush().unwrap();
@@ -71,12 +75,14 @@ pub fn getinput(prompt: &str, allowed: &str) -> String {
 
 // Get a password from the user and validate it
 pub fn getpassword(recover: bool) -> Vec<u8> {
+    
     // allowed characters for the password: upper case, lower case, numbers, special characters
     let allowed = format!("{}{}{}{}", UPPER, LOWER, NUMBERS, SPECIAL);
     if !recover {
+        
         // if the user is not recovering a wallet, show a warning about the password strength
         println!(
-            "\nIt's extremely important to choose a strong password\n\
+        "\nIt's extremely important to choose a strong password\n\
         Nothing would help you if your password is cracked or guessed.\n\
         12 chars long and a mix of upper, lower, numbers & special chars is recommended.\n"
         );
@@ -84,6 +90,7 @@ pub fn getpassword(recover: bool) -> Vec<u8> {
 
     // loop until the user enters a valid password
     loop {
+        
         // get the password from the user two times
         let password = getinput("Enter password: ", &allowed);
         let password2 = getinput("Enter password again: ", &allowed);
@@ -95,6 +102,7 @@ pub fn getpassword(recover: bool) -> Vec<u8> {
         }
 
         if recover {
+            
             // don't check the password strength if the user is recovering a wallet
             return password.into_bytes();
         }
