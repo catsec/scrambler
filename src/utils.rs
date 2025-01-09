@@ -63,7 +63,7 @@ pub fn dividekey(data: [u8; 64], parts: usize, chunksize: usize) -> Vec<u16> {
         panic!("Failed to generate all the chunks");
     }
 
-    return chunks;
+    chunks
 }
 
 // suggest words based on the user input

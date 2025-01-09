@@ -94,7 +94,7 @@ fn main() {
     }
 
     // print the new words to the user
-    println!("");
+    println!();
     printwords(&newwords, lang, recover);
     if !recover {
         // if not recovering from a file, ask the user if they want to save the wallet

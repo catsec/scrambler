@@ -17,7 +17,7 @@ pub fn sha3(data: &[u8], iterations: u32) -> Vec<u8> {
         hasher.update(&hash);
         hash = hasher.finalize().to_vec();
     }
-    return hash;
+    hash
 }
 
 // Derive a secret key from the password using Argon2
@@ -53,5 +53,5 @@ pub fn derivekey(password: Vec<u8>) -> [u8; 64] {
     }
 
     // retuen the secret key
-    return secretkey;
+    secretkey
 }

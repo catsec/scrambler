@@ -117,7 +117,7 @@ pub fn getpassword(recover: bool) -> Vec<u8> {
             // show a warning if the password is weak
 
             // reuqire the user to confirm if they want to continue with a weak password
-            let agree=getinput("\nWeak Passord. Sure you want to continue? (type \"YES\" in capitals to continue): ", &UPPER);
+            let agree=getinput("\nWeak Passord. Sure you want to continue? (type \"YES\" in capitals to continue): ", UPPER);
             if agree == "YES" {
                 // User confirmed to continue with a weak password
                 println!("\nRemember your password, it CANNOT be recovered.\n");
@@ -140,7 +140,7 @@ pub fn getwalletsize() -> usize {
             NUMBERS,
         );
         match input.trim().parse::<usize>() {
-            Ok(w) if w >= 12 && w <= 33 => return w,
+            Ok(w) if (12..=33).contains(&w) => return w,
             _ => println!("\nInvalid wallet size. Enter a number between 12 and 33."),
         }
     }
@@ -152,12 +152,12 @@ pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
     if walletsize > MAX_WORDS {
         panic!("Wallet size cannot exceed {}", MAX_WORDS);
     }
-
     // Create a vector to store the indexes of the words
     let mut indexes: Vec<usize> = vec![0; walletsize];
-    println!("\nPlease enter the words one by one.\nIf you type don't know the full word, type the staring letters,\nThe program will suggest possible words.\n");
+    println!("\nPlease enter the words one by one.\nIf you don't know the full word, type the starting letters,\nThe program will suggest possible words.\n");
     io::stdout().flush().expect("Failed to flush stdout");
-    for i in 0..walletsize {
+
+    for (i, index) in indexes.iter_mut().enumerate().take(walletsize) {
         loop {
             // Prompt the user to enter the word
             print!("Enter word number {}: ", i + 1);
@@ -169,8 +169,8 @@ pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
             let word = input.trim();
 
             // Check if the word exists in the word list
-            if let Some(index) = WORDS[lang].iter().position(|&w| w == word) {
-                indexes[i] = index;
+            if let Some(word_index) = WORDS[lang].iter().position(|&w| w == word) {
+                *index = word_index;
                 break;
             } else {
                 // Find suggestions based on the entered word
@@ -187,9 +187,8 @@ pub fn getwords(walletsize: usize, lang: usize) -> Vec<usize> {
             }
         }
     }
-
     // Return the indexes of the words as a vector
-    return indexes;
+    indexes
 }
 
 // Save the wallet words to a file
@@ -246,7 +245,7 @@ pub fn recoverfromfile() -> (usize, usize, Vec<usize>) {
     let walletsize = readwords.len();
 
     // check if the wallet size is valid
-    if walletsize < 12 || walletsize > 33 {
+    if !(12..=33).contains(&walletsize) {
         panic!("Wallet size must be between 12 and 33 words.");
     }
 
