@@ -23,7 +23,7 @@ pub fn sha3(data: &[u8], iterations: u32) -> Vec<u8> {
 
 // Derive a secret key from the password using Argon2
 pub fn derive_key(password: Vec<u8>) -> [u8; 64] {
-    println!("Deriving secret key, this WILL take a while (have some tea and relax)\n");
+    println!("\nDeriving secret key, this WILL take a while (have some tea and relax)\n");
 
     // Create Argon2 parameters
     let params = Params::new(A_MEMORY, A_TIME, A_PARALLELISM, Some(64))
