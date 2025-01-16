@@ -36,7 +36,7 @@ build_target() {
         output_name="scrambler-macos-intel"
         strip_cmd="strip"
     elif [[ "$target" == "aarch64-apple-darwin" ]]; then
-        output_name="scrambler-macos-Mx"
+        output_name="scrambler-macos-apple-silicon"
         strip_cmd="strip"
     else
         echo "Unsupported target: $target"
