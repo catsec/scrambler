@@ -6,7 +6,8 @@
 pub const A_TIME: u32 = 5;
 pub const A_MEMORY: u32 = 2 * 1024 * 1024;
 pub const A_PARALLELISM: u32 = 4;
-pub const ITERATIONS: u8 = 10;
+pub const ITERATIONS: usize = 10;
+pub const BAR_SIZE: usize = 40;
 
 // you may change this on your own risk
 pub const MAX_WORDS: usize = 33;
@@ -14,6 +15,7 @@ pub const UPPER: &str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 pub const LOWER: &str = "abcdefghijklmnopqrstuvwxyz";
 pub const NUMBERS: &str = "0123456789";
 pub const SPECIAL: &str = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/";
+
 
 // if wordlists are added you can add them here (but don't overide)
 pub const LANG: [&str; 11] = [

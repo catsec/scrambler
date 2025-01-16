@@ -66,7 +66,7 @@ fn main() {
     let mut password = getpassword(recover);
 
     // derive the secret key from the password
-    let mut secretkey = derivekey(password.clone());
+    let mut secretkey = derive_key(password.clone());
     
     // secure wipe the password
     for byte in password.iter_mut() {
