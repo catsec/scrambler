@@ -87,6 +87,9 @@ Then the follow process accures:
 
 This process will returen a valid list word for any password, eliminating known plaintext attacks (though SLIP39 produces preditable first words that might be used to eliminate some results)
 
+## Demo 
+![Demo of Catsec Wallet Word Scrambler](https://raw.githubusercontent.com/catsec/scrambler/main/assets/scrambler.gif)
+
 ## License
 This project is licensed under the Apache 2.0 License. See the `LICENSE` file for details.
 
