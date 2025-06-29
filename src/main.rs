@@ -15,6 +15,7 @@ mod constants;
 mod crypto;
 mod input;
 mod utils;
+mod wordlists;
 
 use std::io::Read;
 
